@@ -63,8 +63,8 @@ class _NewuserState extends State<Newuser> {
     String password = _controller5.text;
     setState(() {
       isNullOrEmpty(name) ? validate1 = false : validate1 = true;
-      isNullOrEmpty(number) ? validate2 = false : validate2 = true;
-      isNullOrEmpty(email) ? validate3 = false : validate3 = true;
+      validateMobile(number) ? validate2 = false : validate2 = true;
+      validateEmail(email) ? validate3 = false : validate3 = true;
       isNullOrEmpty(password) ? validate5 = false : validate5 = true;
     });
     if (validate1 == true &&

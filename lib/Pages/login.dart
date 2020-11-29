@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/Pages/Customer_home.dart';
 import 'package:frontend/Pages/homepage.dart';
 import 'package:frontend/Pages/newuser.dart';
 import 'package:frontend/Pages/User_profile.dart';
@@ -120,7 +121,7 @@ class _LoginState extends State<Login> {
                             print(final_index);
                             // Login App: openDialog(context, 'You're in! App gets started here with the current user')    
                             Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => ProfilePage(final_index: final_index,)));
+                                builder: (context) => CustomerPage(final_index: final_index,)));
                           } else {
                             openDialog(context, 'Invalid password');
                           }
@@ -169,7 +170,7 @@ class _LoginState extends State<Login> {
                             }
                           }
                           Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => ProfilePage(final_index: users.indexWhere((item) => item.id == user.id))));
+                              builder: (context) => CustomerPage(final_index: users.indexWhere((item) => item.id == user.id))));
                         });
 
                       },

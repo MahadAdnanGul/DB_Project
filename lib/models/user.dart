@@ -94,12 +94,13 @@ class Customer {
       };
 
   factory Customer.fromJson(Map<String, dynamic> json) {
-    return new Customer.db(
+     var a=new Customer.db(
         json['customer_id'] as int,
         json['customer_name'] as String,
         json['customer_number'] as String,
         json['customer_email'] as String,
         json['randomstr'] as String,
         json['hash'] as String);
+        return a;
   }
 }

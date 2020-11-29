@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/Pages/ADMIN_HOME.dart';
+import 'package:frontend/Pages/InventoryManagementPage.dart';
 import 'package:frontend/Pages/homepage.dart';
 import 'package:frontend/Pages/login.dart';
+import 'package:frontend/Pages/menuMangementPage.dart';
+import 'package:frontend/Pages/menuMangementPage_ViewUpdate.dart';
 import 'package:frontend/Pages/newuser.dart';
 import 'package:frontend/models/user.dart';
 import 'package:frontend/models/http.dart';
@@ -86,22 +90,41 @@ class _StartPageState extends State<StartPage> {
         children: <Widget>[
           Container(
             child: raisedButton("ADMIN",onPressed: () => Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => MyHomePage())))
+                builder: (context) => AdminPage())))
           ),
           Container(
               child: raisedButton("USER",onPressed: () => Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => Login()))
               )
+          
           ),
+        /*  Container(
+              child: raisedButton("Menu Mangement Page",
+              onPressed: () => Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => MenuMangementPage()))
+              )
+          
+          ),
+          Container(
+              child: raisedButton("Inventory Mangement Page",
+                  onPressed: () => Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => InventoryMangementPage()))
+              )
+
+          ),*/
+          //  Container(
+          //     child: raisedButton("View and update Menu",
+          //     onPressed: () => Navigator.of(context).push(MaterialPageRoute(
+          //         builder: (context) => ViewUpdateMenuItemPage()))
+          //     )
+          
+          // ),
         ],
       ),
      // body: Center(
          // child: Padding(
             //  padding: const EdgeInsets.all(8.0), child: _buildList(context))),
-      floatingActionButton: FloatingActionButton(
-        onPressed:() {},
-        child: Icon(Icons.add),
-      ),
+
     );
   }
 }

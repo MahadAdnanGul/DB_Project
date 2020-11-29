@@ -397,13 +397,13 @@ Widget textfield(String labeltext, TextEditingController controller,
   if (validate != null && outlineBorder == false) {
     inputDecoration = InputDecoration(
       labelText: labeltext,
-      errorText: validate ? null : 'Field can\'t be empty',
+      errorText: validate ? null : 'Invalid',
     );
   } else if (validate != null && outlineBorder == true) {
     inputDecoration = InputDecoration(
       labelText: labeltext,
       border: OutlineInputBorder(),
-      errorText: validate ? null : 'Field can\'t be empty',
+      errorText: validate ? null : 'Invalid',
     );
   } else if (validate == null && outlineBorder == false) {
     inputDecoration = InputDecoration(
@@ -428,6 +428,30 @@ bool isNullOrEmpty(String string) {
   } else {
     return false;
   }
+}
+
+bool validateMobile(String value) {
+  String patttern = r'(^(?:[+0]9)?[0-9]{10,12}$)';
+  RegExp regExp = new RegExp(patttern);
+  if (value.length == 0) {
+    return true;
+  }
+  else if (!regExp.hasMatch(value)) {
+    return true;
+  }
+  return false;
+}
+
+bool validateEmail(String value) {
+  String patttern =  r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+  RegExp regExp = new RegExp(patttern);
+  if (value.length == 0) {
+    return true;
+  }
+  else if (!regExp.hasMatch(value)) {
+    return true;
+  }
+  return false;
 }
 
 bool isDefault(Customer user) {
