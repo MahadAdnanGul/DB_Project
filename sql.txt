@@ -4,15 +4,18 @@ drop database if exists restaurant;
 create database restaurant;
 use restaurant;
 
-create table fooditem(
-item_id int not null auto_increment,
-item_name varchar(30) not null,
-item_quantity int not null,
-Primary key(item_id)
-);
+-- create table cartitem(
+-- s_num int not null auto_increment,
+-- customer_id int not null,
+-- item_name varchar(30) unique not null,
+-- item_quantity int not null,
+-- item_price int not null,
+-- shoppingcartid int not null,
+-- Primary key(s_num)
+-- );
 
-insert into fooditem(item_name, item_quantity)
-values ('McChicken Burger', '1');
+-- insert into fooditem(item_name, item_quantity)
+-- values ('McChicken Burger', '1');
 
 create table customer(
 customer_id int not null,
@@ -61,6 +64,83 @@ CREATE TRIGGER testref AFTER INSERT ON menu
 delimiter ;
 
 
+create table cart(
+ serial_number int not null auto_increment unique,
+ customer_id int not null,
+ hash varchar(50) not null,
+ status varchar(10) not null,
+ product_name varchar(30) not null,
+ product_price int not null ,
+ product_quantity int not null ,
+ -- FOREIGN KEY (product_name) REFERENCES menu (item_name)
+ -- ON UPDATE CASCADE ON DELETE CASCADE,
+ -- FOREIGN KEY (product_price) REFERENCES menu (item_price) 
+ -- ON UPDATE CASCADE ON DELETE CASCADE,
+ Primary key(serial_number)
+); 
+
+ create table orders(
+ order_id int not null auto_increment unique,
+ customer_id int not null,
+ hash varchar(50) not null,
+ time_stamp varchar(50) not null unique, 
+ order_status varchar(25) not null,
+ primary key(order_id)
+ );
+ 
+delimiter $$
+
+CREATE TRIGGER testref2 AFTER INSERT ON orders
+  FOR EACH ROW
+  BEGIN
+	update cart
+    set hash=new.hash, status='P'
+    where customer_id=new.customer_id and status='NP';
+    
+  END$$
+|
+
+delimiter ;
+
+
+
+
+
+create table sales(
+sale_id int auto_increment not null,
+order_id int unique,
+order_time_stamp varchar(50) unique,
+INDEX i (order_id),
+INDEX t (order_time_stamp),
+
+PRIMARY KEY (sale_id),
+
+FOREIGN KEY (order_id) REFERENCES orders (order_id)
+ON UPDATE CASCADE ON DELETE CASCADE,
+
+FOREIGN KEY (order_time_stamp) REFERENCES orders (time_stamp)
+ON UPDATE CASCADE ON DELETE CASCADE
+
+
+
+);
+
+delimiter $$
+
+CREATE TRIGGER testref3 AFTER update ON orders
+  FOR EACH ROW
+  BEGIN
+	if New.order_status="complete" then
+	insert into sales(order_id, order_time_stamp) values (NEW.order_id, NEW.time_stamp);
+  END IF;
+ 
+  
+  END$$
+|
+
+delimiter ;
+
+
 insert into menu(item_name,item_price) values ("bigmac",'450');
 
 update menu set item_name="smallMac" where item_name="bigmac"; 
@@ -69,5 +149,8 @@ update menu set item_name="smallMac" where item_name="bigmac";
 select* from customer;
 select* from menu;
 select* from inventory;
+select* from cart;
+select* from orders;
+select* from sales;
 -- select menu.item_id,menu.item_name,inventory.quantity from inventory inner join menu on menu.item_id=inventory.product_id and menu.item_name=inventory.product_name;
 
