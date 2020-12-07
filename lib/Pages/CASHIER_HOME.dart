@@ -13,15 +13,13 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:provider/provider.dart';
 import 'package:encrypt/encrypt.dart';
-import 'package:frontend/Pages/SalesAnal.dart';
 
-
-class AdminPage extends StatefulWidget {
-  AdminPage();
-  _AdminPageState createState() => _AdminPageState();
+class CashierPage extends StatefulWidget {
+  CashierPage();
+  _CashierPageState createState() => _CashierPageState();
 }
 
-class _AdminPageState extends State<AdminPage> {
+class _CashierPageState extends State<CashierPage> {
   List<Customer> users = [];
   Http http = new Http();
   //int index;
@@ -84,7 +82,7 @@ class _AdminPageState extends State<AdminPage> {
     }
     return Scaffold(
       appBar: AppBar(
-        title: Text('McAdmin', style: TextStyle(color: Colors.yellowAccent),),
+        title: Text('McCashier', style: TextStyle(color: Colors.yellowAccent),),
         automaticallyImplyLeading: false,
         backgroundColor: Colors.redAccent,
       ),
@@ -95,33 +93,11 @@ class _AdminPageState extends State<AdminPage> {
                   builder: (context) => MyHomePage())))
           ),
           Container(
-              child: raisedButton("Menu Mangement Page",
-                  onPressed: () => Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => MenuMangementPage()))
-              )
-
+              child: raisedButton("Order management",onPressed: () => Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => OrderManagementPage())))
           ),
-          Container(
-              child: raisedButton("Inventory Mangement Page",
-                  onPressed: () => Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => InventoryMangementPage()))
-              )
 
-          ),
-          Container(
-              child: raisedButton("Order Mangement Page",
-                  onPressed: () => Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => OrderManagementPage()))
-              )
 
-          ),
-          Container(
-              child: raisedButton("Sales Analytics",
-                  onPressed: () => Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => SalesAnalyticsPage()))
-              )
-
-          ),
           //  Container(
           //     child: raisedButton("View and update Menu",
           //     onPressed: () => Navigator.of(context).push(MaterialPageRoute(

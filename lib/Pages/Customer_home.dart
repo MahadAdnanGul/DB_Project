@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/Pages/InventoryManagementPage.dart';
+import 'package:frontend/Pages/Order%20Management_customer.dart';
 import 'package:frontend/Pages/User_profile.dart';
 import 'package:frontend/Pages/ViewMenu.dart';
 import 'package:frontend/Pages/homepage.dart';
+import 'package:frontend/Pages/ShoppingCartPage.dart';
 import 'package:frontend/Pages/login.dart';
 import 'package:frontend/Pages/menuMangementPage.dart';
 import 'package:frontend/Pages/menuMangementPage_ViewUpdate.dart';
@@ -43,41 +45,11 @@ class _CustomerPageState extends State<CustomerPage> {
 
 
 
-  /*Widget _buildList(BuildContext context) {
-    return ListView.builder(
-        itemCount: users.length,
-        itemBuilder: (context, index) {
-          users.sort((a, b) => a.id.compareTo(b.id));
-          return ExpansionTile(
-            leading: CircleAvatar(
-              radius: 20.0,
-              backgroundColor: leadingBackgroundColor,
-              child: Text('${users[index].id}',style: TextStyle(fontSize: 20.0, color: leadingNumberColor),),
-            ),
-            onExpansionChanged: (boo) => onExpansionChanged(boo),
-            title: Text('${users[index].name}'),
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.only(bottom: 20),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: <Widget>[
-                    raisedButton('Update',
-                        onPressed: () => updateonPressed(index),
-                        fontSize: 15.0),
-                    raisedButton('Delete',
-                        onPressed: () => deleteonPressed(context, index),
-                        fontSize: 15.0),
-                  ],
-                ),
-              ),
-            ],
-          );
-        });
-  }*/
+
 
   @override
   Widget build(BuildContext context) {
+    int customer_id=widget.final_index;
     if (users.isEmpty) {
       setState(() {
         users = Provider.of<List<Customer>>(context);
@@ -97,9 +69,26 @@ class _CustomerPageState extends State<CustomerPage> {
           ),
           Container(
               child: raisedButton("Menu",
-                  onPressed: () => Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => ViewMenuItemPage()))
-              )
+                  onPressed: () => {print(customer_id),
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => ViewMenuItemPage(final_index: customer_id)))
+                  })
+
+          ),
+          Container(
+              child: raisedButton("Shopping Cart",
+                  onPressed: () => {
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => ShoppingCartPage(final_index: users[widget.final_index].customer_id)))
+                  })
+
+          ),
+          Container(
+              child: raisedButton("View orders",
+                  onPressed: () => {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => OrderManagementPageCustomer(final_index: users[widget.final_index].customer_id)))
+                  })
 
           ),
 

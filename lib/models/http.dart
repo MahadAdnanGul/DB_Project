@@ -2,10 +2,13 @@ import 'package:frontend/BO/BO.dart';
 import 'package:frontend/models/inventory.dart';
 import 'package:frontend/models/menu.dart';
 
+import 'package:frontend/models/cart_item.dart';
 
 import 'package:frontend/BO/BO.dart';
 import 'package:frontend/models/menu.dart';
 import 'package:frontend/models/inventory.dart';
+import 'package:frontend/models/orders.dart';
+import 'package:frontend/models/sales.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
@@ -146,10 +149,131 @@ class Http {
 
   }
 
+  // SHOPPING CART GETTERS SETTERS
+  ShoppingCartPostRequest(cartItem_post cart_item) async {
+    print("shopping cart http.dart");
+    final users='cartItem/';
+    String body = json.encode(cart_item.toJson());
+    print(body);
+    print('$url$users');
+    http.Response response = await http.post('$url$users', headers: headers, body: body, encoding: encoding);
+    // print("menu works");
+    print(response.body);
+  }
+
+  Future<List<cartItem_get>> getCartItems(int customer_id) async {
+    // print("byeee");
+    print("GET CART ITEMS STARTS HEREE");
+    // print(customer_id);
+    final users='cartItem/';
+    print('$url$users'+'/'+'$customer_id');
+    http.Response response = await http.get('$url$users'+'/'+'$customer_id');
+    print("heloooooooooooo");
+    var cartList = List<cartItem_get>();
+    var cartJson= json.decode(response.body);
+    print(response.body);
+    print("this is cart json");
+    // print(cartJson);
+    for(var cart in cartJson){
+      cartList.add(cartItem_get.fromJson(cart));
+    }
+
+    print("its donnee");
+    return cartList;
+    // List<MenuGet> result = new List<MenuGet>.from(json
+    //           .decode(response.body)
+    //           .map((jsonObject) => new MenuGet.fromJson(jsonObject)));
+
+  }
+  // FOR ORDERS
+
+  ordersPostrequest(orders_post order) async {
+    print("shopping cart http.dart");
+    final users='order/';
+    String body = json.encode(order.toJson());
+    print(body);
+    print('$url$users');
+    http.Response response = await http.post('$url$users', headers: headers, body: body, encoding: encoding);
+    // print("menu works");
+    print(response.body);
+  }
+
+  deletecart(int serial_number) async{
+    final users='cartItem/';
+    print('$url$users'+'/'+'$serial_number');
+    http.Response response = await http.delete('$url$users'+'/'+'$serial_number', headers: headers);
+    print("hogyaa delete");
+    print(response.body);
+  }
+
+  updatecart(cartItem_update cart_item) async {
+    final users='cartItem/';
+
+    String body = json.encode(cart_item.toJson());
+    http.Response response = await http.put('$url$users${cart_item.serial_number}',
+        headers: headers, body: body, encoding: encoding);
+    print(response.body);
+    print(cart_item.serial_number);
+
+  }
+
+  Future<List<orders_get>> OrderGet() async {
+    print("byeee");
+    final users='order/';
+    print('$url$users');
+    http.Response response = await http.get('$url$users');
+    print(response.body);
+    print("heloooooooooooo");
+    var menuList = List<orders_get>();
+    var menuJson= json.decode(response.body);
+    for(var menu in menuJson){
+      menuList.add(orders_get.fromJson(menu));
+    }
+
+    print(menuList);
+    print("its donnee");
+    return menuList;
+    // List<MenuGet> result = new List<MenuGet>.from(json
+    //           .decode(response.body)
+    //           .map((jsonObject) => new MenuGet.fromJson(jsonObject)));
+
+  }
+
+  OrderPutRequest(orders_get menu) async {
+    final users='order/';
+    String body = json.encode(menu.toJson());
+    http.Response response = await http.put('$url$users${menu.order_id}',
+        headers: headers, body: body, encoding: encoding);
+    print(response.body);
+
+  }
+  Future<List<sales_get>> SalesGet() async {
+    print("byeee");
+    final users='sales/';
+    print('$url$users');
+    http.Response response = await http.get('$url$users');
+    print(response.body);
+    print("heloooooooooooo");
+    var menuList = List<sales_get>();
+    var menuJson= json.decode(response.body);
+    for(var menu in menuJson){
+      menuList.add(sales_get.fromJson(menu));
+    }
+
+    print(menuList);
+    print("its donnee");
+    return menuList;
+    // List<MenuGet> result = new List<MenuGet>.from(json
+    //           .decode(response.body)
+    //           .map((jsonObject) => new MenuGet.fromJson(jsonObject)));
+
+  }
+
+
 }
 
   
-    
+
 
       
 

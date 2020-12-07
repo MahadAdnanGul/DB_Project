@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/Pages/ADMIN_HOME.dart';
+import 'package:frontend/Pages/CASHIER_HOME.dart';
 import 'package:frontend/Pages/InventoryManagementPage.dart';
 import 'package:frontend/Pages/homepage.dart';
 import 'package:frontend/Pages/login.dart';
@@ -97,6 +98,12 @@ class _StartPageState extends State<StartPage> {
                   builder: (context) => Login()))
               )
           
+          ),
+          Container(
+              child: raisedButton("CASHIER",onPressed: () => Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => CashierPage()))
+              )
+
           ),
         /*  Container(
               child: raisedButton("Menu Mangement Page",
