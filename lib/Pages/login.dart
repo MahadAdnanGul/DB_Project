@@ -65,7 +65,7 @@ class _LoginState extends State<Login> {
                     alignment: Alignment.center,
                     padding: EdgeInsets.all(10),
                     child: Text(
-                      'Sign in',
+                      'Sign up',
                       style: TextStyle(fontSize: 20),
                     )),
                 Container(

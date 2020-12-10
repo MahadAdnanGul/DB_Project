@@ -1,4 +1,5 @@
 import 'package:frontend/BO/BO.dart';
+import 'package:frontend/models/cashier.dart';
 import 'package:frontend/models/inventory.dart';
 import 'package:frontend/models/menu.dart';
 
@@ -37,6 +38,48 @@ class Http {
     result.sort((a, b) => a.id.compareTo(b.id));
     print('${getstatusCode(response.statusCode)}');
     return result;
+  }
+
+  Future<List<Cashier>> getCashier() async {
+    print("cashier get works");
+    final users='cashier/';
+    print('$url$users');
+    http.Response response = await http.get('$url$users');
+    print(response.body);
+    // List<Customer> result = parseResponse_customer(response.body);
+    List<Cashier> result = new List<Cashier>.from(json
+        .decode(response.body)
+        .map((jsonObject) => new Cashier.fromJson(jsonObject)));
+    print(result);
+    result.sort((a, b) => a.id.compareTo(b.id));
+    print('${getstatusCode(response.statusCode)}');
+    return result;
+  }
+
+  makeCashierPostRequest(Cashier user) async {
+    print("going to post");
+    final users='cashier/';
+    String body = json.encode(user.toJson());
+    http.Response response =
+    await http.post('$url$users', headers: headers, body: body, encoding: encoding);
+    print(response.body);
+    print(
+        'Estado de respuesta ${response.statusCode} => ${getstatusCode(response.statusCode)}');
+  }
+  makeCashierDeleteRequest(Cashier user) async {
+    final users='cashier/';
+    http.Response response = await http.delete('$url$users${user.id}', headers: headers);
+    print(response.body);
+    print('Estado de respuesta ${response.statusCode} => ${getstatusCode(response.statusCode)}');
+  }
+  makeCashierPutRequest(Cashier user) async {
+    final users='cashier/';
+    String body = json.encode(user.toJson());
+    http.Response response = await http.put('$url$users${user.id}',
+        headers: headers, body: body, encoding: encoding);
+    print(response.body);
+    print(
+        'Estado de respuesta ${response.statusCode} => ${getstatusCode(response.statusCode)}');
   }
 
   makeUserDeleteRequest(Customer user) async {
@@ -268,6 +311,30 @@ class Http {
     //           .map((jsonObject) => new MenuGet.fromJson(jsonObject)));
 
   }
+
+  /*Future<List<sales_get>> SalesGet_month(String order_month,String order_year) async {
+    print("byeee");
+    final users='sales/';
+    print('$url$users');
+    http.Response response = await http.get('$url$users$order_month$order_year');
+    print(response.body);
+    print("heloooooooooooo");
+    var menuList = List<sales_get>();
+    var menuJson= json.decode(response.body);
+    for(var menu in menuJson){
+      menuList.add(sales_get.fromJson(menu));
+    }
+
+    print(menuList);
+    print("its donnee");
+    return menuList;
+    // List<MenuGet> result = new List<MenuGet>.from(json
+    //           .decode(response.body)
+    //           .map((jsonObject) => new MenuGet.fromJson(jsonObject)));
+
+  }*/
+
+
 
 
 }

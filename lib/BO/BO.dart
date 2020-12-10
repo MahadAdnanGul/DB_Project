@@ -1,3 +1,4 @@
+import 'package:frontend/models/cashier.dart';
 import 'package:frontend/models/user.dart';
 import 'package:flutter/material.dart';
 
@@ -390,6 +391,15 @@ asignid(List<Customer> items, Customer item) {
   }
   return item;
 }
+asignidC(List<Cashier> items, Cashier item) {
+  if (items == null || items.isEmpty) {
+    item.id = -1;
+  } else {
+    items.sort((b, a) => a.id.compareTo(b.id));
+    item.id = items[0].id + 1;
+  }
+  return item;
+}
 
 Widget textfield(String labeltext, TextEditingController controller,
     {bool obscureText, bool validate, bool outlineBorder = false}) {
@@ -455,6 +465,13 @@ bool validateEmail(String value) {
 }
 
 bool isDefault(Customer user) {
+  if (user == null || (user.id == -1 && user.name == '')) {
+    return true;
+  } else {
+    return false;
+  }
+}
+bool isDefaultC(Cashier user) {
   if (user == null || (user.id == -1 && user.name == '')) {
     return true;
   } else {

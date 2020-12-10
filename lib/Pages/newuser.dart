@@ -16,11 +16,15 @@ class _NewuserState extends State<Newuser> {
   TextEditingController _controller1;
   TextEditingController _controller2;
   TextEditingController _controller3;
+  TextEditingController _controller4;
+  TextEditingController _controller44;
 
   TextEditingController _controller5;
   bool validate1;
   bool validate2;
   bool validate3;
+  bool validate4;
+  bool validate44;
   bool validate5;
   double spaceBetweenTextfields;
   double spaceWithButton;
@@ -35,11 +39,18 @@ class _NewuserState extends State<Newuser> {
     _controller2.text = widget.user.number;
     _controller3 = TextEditingController();
     _controller3.text = widget.user.email;
+    _controller4 = TextEditingController();
+    _controller4.text = widget.user.address;
+    _controller44 = TextEditingController();
+    _controller44.text = widget.user.city;
+
     _controller5 = TextEditingController();
     _controller5.text = widget.user.hashBase64;
     validate1 = true;
     validate2 = true;
     validate3 = true;
+    validate4=true;
+    validate44=true;
     validate5 = true;
     spaceBetweenTextfields = 10.0;
     spaceWithButton = 30.0;
@@ -52,6 +63,8 @@ class _NewuserState extends State<Newuser> {
     _controller1.dispose();
     _controller2.dispose();
     _controller3.dispose();
+    _controller4.dispose();
+    _controller44.dispose();
     _controller5.dispose();
     super.dispose();
   }
@@ -60,22 +73,32 @@ class _NewuserState extends State<Newuser> {
     String name = _controller1.text;
     String number = _controller2.text;
     String email = _controller3.text;
+    String address= _controller4.text;
+    String city= _controller44.text;
     String password = _controller5.text;
     setState(() {
       isNullOrEmpty(name) ? validate1 = false : validate1 = true;
       validateMobile(number) ? validate2 = false : validate2 = true;
       validateEmail(email) ? validate3 = false : validate3 = true;
+      isNullOrEmpty(address) ? validate4 = false : validate4 = true;
+      isNullOrEmpty(city) ? validate44 = false : validate44 = true;
       isNullOrEmpty(password) ? validate5 = false : validate5 = true;
+
     });
     if (validate1 == true &&
         validate2 == true &&
         validate3 == true &&
+        validate4 == true &&
+        validate44 == true &&
         validate5 == true) {
           setState(() {
             widget.user.name = name;
             widget.user.number = number;
             widget.user.mail = email;
+            widget.user.address=address;
+            widget.user.city=city;
             widget.user.hash = password;
+
           });
       
       Navigator.of(context).pop(widget.user);
@@ -104,6 +127,17 @@ class _NewuserState extends State<Newuser> {
               obscureText: false,
               validate: validate3,
               outlineBorder: outlineBorder),
+          SizedBox(height: spaceBetweenTextfields),
+          textfield('Address', _controller4,
+              obscureText: false,
+              validate: validate4,
+              outlineBorder: outlineBorder),
+          SizedBox(height: spaceBetweenTextfields),
+          textfield('City', _controller44,
+              obscureText: false,
+              validate: validate44,
+              outlineBorder: outlineBorder),
+
           SizedBox(height: spaceBetweenTextfields),
           textfield('Password', _controller5,
               obscureText: true,

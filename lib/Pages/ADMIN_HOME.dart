@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:frontend/Pages/InventoryManagementPage.dart';
 import 'package:frontend/Pages/Order%20Management.dart';
 import 'package:frontend/Pages/homepage.dart';
+import 'package:frontend/Pages/homepageC.dart';
 import 'package:frontend/Pages/login.dart';
 import 'package:frontend/Pages/menuMangementPage.dart';
 import 'package:frontend/Pages/menuMangementPage_ViewUpdate.dart';
 import 'package:frontend/Pages/newuser.dart';
+import 'package:frontend/models/cashier.dart';
 import 'package:frontend/models/user.dart';
 import 'package:frontend/models/http.dart';
 import 'package:frontend/BO/BO.dart';
@@ -23,6 +25,7 @@ class AdminPage extends StatefulWidget {
 
 class _AdminPageState extends State<AdminPage> {
   List<Customer> users = [];
+  List<Cashier> cashier = [];
   Http http = new Http();
   //int index;
   Color leadingBackgroundColor;
@@ -30,6 +33,11 @@ class _AdminPageState extends State<AdminPage> {
 
   @override
   initState() {
+    http.getCashier().then((value) {
+      setState(() {
+        cashier.addAll(value);
+      });
+    });
     super.initState();
   }
 
@@ -77,9 +85,13 @@ class _AdminPageState extends State<AdminPage> {
 
   @override
   Widget build(BuildContext context) {
+
+
     if (users.isEmpty) {
       setState(() {
         users = Provider.of<List<Customer>>(context);
+
+
       });
     }
     return Scaffold(
@@ -93,6 +105,10 @@ class _AdminPageState extends State<AdminPage> {
           Container(
               child: raisedButton("Customer Management",onPressed: () => Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => MyHomePage())))
+          ),
+          Container(
+              child: raisedButton("Cashier Management",onPressed: () => Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => MyHomePageCashier())))
           ),
           Container(
               child: raisedButton("Menu Mangement Page",

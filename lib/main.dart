@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/Pages/newuser.dart';
+import 'package:frontend/models/cashier.dart';
 import 'BO/BO.dart';
 import 'Pages/homepage.dart';
 import 'Pages/login.dart';
@@ -40,7 +41,8 @@ class MyApp extends StatelessWidget {
         } else {
           return MultiProvider(
             providers: [
-              Provider<List<Customer>>.value(value: response.data)
+              Provider<List<Customer>>.value(value: response.data),
+              //Provider<List<Cashier>>.value(value: response.data)
             ],
             child: MaterialApp(
               title: 'Flutter Rest Api',

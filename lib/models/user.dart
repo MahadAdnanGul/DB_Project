@@ -4,10 +4,11 @@ import 'package:random_string/random_string.dart';
 
 class Customer {
   int customer_id;
-  String customer_name, customer_number,customer_email;
+  String customer_name, customer_number,customer_email,customer_address,customer_city;
   Encrypter _encrypter;
   Encrypted _hash;
   String _randomStr;
+
 
   set id(int id) {
     customer_id = id;
@@ -25,11 +26,21 @@ class Customer {
     customer_email = mail;
   }
 
+  set address(String address) {
+    customer_address = address;
+  }
+
+  set city(String city) {
+    customer_city = city;
+  }
+
   set hash(String password) {
     _encrypter =
         Encrypter(Salsa20(Key.fromUtf8('$customer_name$customer_number$customer_email')));
     _hash = _encrypter.encrypt(password, iv: IV.fromUtf8(_randomStr));
   }
+
+
 
   int get id {
     return customer_id;
@@ -47,9 +58,18 @@ class Customer {
     return customer_email;
   }
 
+  String get address {
+    return customer_address;
+  }
+
+  String get city {
+    return customer_city;
+  }
+
   String get randomStr {
     return '$_randomStr';
   }
+
 
   String get hashBase64 {
     if (_hash == null)
@@ -58,7 +78,7 @@ class Customer {
       return '${_hash.base64}';
   }
 
-  Customer.db(this.customer_id, this.customer_name, this.customer_number, this.customer_email,
+  Customer.db(this.customer_id, this.customer_name, this.customer_number, this.customer_email,this.customer_address,this.customer_city,
       this._randomStr, String hash) {
     _encrypter =
         Encrypter(Salsa20(Key.fromUtf8('$customer_name$customer_number$customer_email')));
@@ -70,9 +90,12 @@ class Customer {
     customer_name = '';
     customer_number = '';
     customer_email = '';
+    customer_address='';
+    customer_city='';
     _randomStr = randomString(8);
     _encrypter = null;
     _hash = null;
+
   }
 
   bool passwordVerify(String newpassword) {
@@ -89,8 +112,11 @@ class Customer {
         'customer_name': name,
         'customer_number': number,
         'customer_email': email,
+        'customer_address': address,
+        'customer_city': city,
         'randomstr': randomStr,
-        'hash': hashBase64
+        'hash': hashBase64,
+
       };
 
   factory Customer.fromJson(Map<String, dynamic> json) {
@@ -99,8 +125,11 @@ class Customer {
         json['customer_name'] as String,
         json['customer_number'] as String,
         json['customer_email'] as String,
+        json['customer_address'] as String,
+        json['customer_city'] as String,
         json['randomstr'] as String,
         json['hash'] as String);
+
         return a;
   }
 }

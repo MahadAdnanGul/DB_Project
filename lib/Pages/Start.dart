@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/Pages/ADMIN_HOME.dart';
+import 'package:frontend/Pages/AdminLogin.dart';
 import 'package:frontend/Pages/CASHIER_HOME.dart';
+import 'package:frontend/Pages/CLogin.dart';
 import 'package:frontend/Pages/InventoryManagementPage.dart';
+import 'package:frontend/Pages/View%20Only.dart';
 import 'package:frontend/Pages/homepage.dart';
 import 'package:frontend/Pages/login.dart';
 import 'package:frontend/Pages/menuMangementPage.dart';
 import 'package:frontend/Pages/menuMangementPage_ViewUpdate.dart';
 import 'package:frontend/Pages/newuser.dart';
+import 'package:frontend/models/cashier.dart';
 import 'package:frontend/models/user.dart';
 import 'package:frontend/models/http.dart';
 import 'package:frontend/BO/BO.dart';
@@ -79,6 +83,7 @@ class _StartPageState extends State<StartPage> {
     if (users.isEmpty) {
       setState(() {
         users = Provider.of<List<Customer>>(context);
+
       });
     }
     return Scaffold(
@@ -87,46 +92,56 @@ class _StartPageState extends State<StartPage> {
         automaticallyImplyLeading: false,
         backgroundColor: Colors.redAccent,
       ),
-      body: Column(
-        children: <Widget>[
-          Container(
-            child: raisedButton("ADMIN",onPressed: () => Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => AdminPage())))
-          ),
-          Container(
-              child: raisedButton("USER",onPressed: () => Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => Login()))
-              )
-          
-          ),
-          Container(
-              child: raisedButton("CASHIER",onPressed: () => Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => CashierPage()))
-              )
+      body: Container(
+        alignment: Alignment.center,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
 
-          ),
-        /*  Container(
-              child: raisedButton("Menu Mangement Page",
-              onPressed: () => Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => MenuMangementPage()))
-              )
-          
-          ),
-          Container(
-              child: raisedButton("Inventory Mangement Page",
-                  onPressed: () => Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => InventoryMangementPage()))
-              )
+          children: <Widget>[
+            Container(
+              child: raisedButton("ADMIN",onPressed: () => Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => ALogin())))
+            ),
+            Container(
+                child: raisedButton("USER",onPressed: () => Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => Login()))
+                )
 
-          ),*/
-          //  Container(
-          //     child: raisedButton("View and update Menu",
-          //     onPressed: () => Navigator.of(context).push(MaterialPageRoute(
-          //         builder: (context) => ViewUpdateMenuItemPage()))
-          //     )
-          
-          // ),
-        ],
+            ),
+            Container(
+                child: raisedButton("CASHIER",onPressed: () => Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => CLogin()))
+                )
+
+            ),
+        Container(
+        child: raisedButton("View Menu",onPressed: () => Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => ViewOnly()))
+        ),
+        )
+          /*  Container(
+                child: raisedButton("Menu Mangement Page",
+                onPressed: () => Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => MenuMangementPage()))
+                )
+
+            ),
+            Container(
+                child: raisedButton("Inventory Mangement Page",
+                    onPressed: () => Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => InventoryMangementPage()))
+                )
+
+            ),*/
+            //  Container(
+            //     child: raisedButton("View and update Menu",
+            //     onPressed: () => Navigator.of(context).push(MaterialPageRoute(
+            //         builder: (context) => ViewUpdateMenuItemPage()))
+            //     )
+
+            // ),
+          ],
+        ),
       ),
      // body: Center(
          // child: Padding(

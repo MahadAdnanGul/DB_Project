@@ -27,6 +27,7 @@ dependencies:
   provider: any
   encrypt: any
   random_string: ^2.0.1
+  flutter_datetime_picker: ^1.4.0
 
 dev_dependencies:
   flutter_test:

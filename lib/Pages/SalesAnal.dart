@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/BO/BO.dart';
+import 'package:frontend/Pages/AnalPage.dart';
+import 'package:frontend/Pages/DailyAnalPage.dart';
 import 'package:frontend/Pages/newmenu.dart';
 import 'package:frontend/models/http.dart';
 import 'package:frontend/models/menu.dart';
@@ -79,7 +81,7 @@ class _SalesAnalyticsPageState extends State<SalesAnalyticsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('McOrder Management'),
+        title: Text('McSales'),
       ),
       body: ListView.builder(
           itemCount: _menugets.length,
@@ -93,7 +95,7 @@ class _SalesAnalyticsPageState extends State<SalesAnalyticsPage> {
               onExpansionChanged: (boo) => onExpansionChanged(boo),
               title: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [Text('OrderID: ${_menugets[index].order_id}'),
-                    Text(_menugets[index].time_stamp.toString()),
+                    Text(_menugets[index].month.toString()+'/'+_menugets[index].day.toString()+'/'+_menugets[index].year.toString()+' '+_menugets[index].time.toString()),
                   ]),
               // Text('${_menugets[index].item_name}'
               children: <Widget>[
@@ -102,6 +104,7 @@ class _SalesAnalyticsPageState extends State<SalesAnalyticsPage> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: <Widget>[
+                      Text("Total: "+_menugets[index].order_total.toString())
 
                       // onPressed: ()=>UpdateonPressed(context, _menugets[index].item_id,index),
 
@@ -112,6 +115,15 @@ class _SalesAnalyticsPageState extends State<SalesAnalyticsPage> {
               ],
             );
           }
+      ),
+      bottomSheet: Row(
+        children: <Widget>[
+              raisedButton("View Monthly Analytics",onPressed: ()=> Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => AnalPage()))),
+              raisedButton("View Daily Analytics",onPressed: ()=> Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => DailyAnalPage()))),
+        ],
+
       ),
     );
   }

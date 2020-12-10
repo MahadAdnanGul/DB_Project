@@ -92,6 +92,7 @@ class _OrderManagementPageState extends State<OrderManagementPage> {
               onExpansionChanged: (boo) => onExpansionChanged(boo),
               title: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [Text('Status: ${_menugets[index].order_status}'),
+                    Text('Total: ${_menugets[index].order_total}')
                     ]),
               // Text('${_menugets[index].item_name}'
               children: <Widget>[

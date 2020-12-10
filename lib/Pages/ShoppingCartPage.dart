@@ -227,14 +227,32 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
 
 
   PlaceOrder(int customer_id){
-    String timestamp= DateTime.now().millisecondsSinceEpoch.toString()+customer_id.toString(); 
+    String timestamp= DateTime.now().millisecondsSinceEpoch.toString()+customer_id.toString();
+    var timestamp2=DateTime.now();
+    int hour=timestamp2.hour.toInt();
+    String hour_string=hour.toString();
+    if(hour<10)
+      {
+        hour_string='0'+hour.toString();
+      }
+    int min=timestamp2.minute.toInt();
+    String min_string=min.toString();
+    if(min<10)
+    {
+      min_string='0'+min.toString();
+    }
+
+    String time=hour_string+':'+min_string;
+    String month=timestamp2.month.toString();
+    String day=timestamp2.day.toString();
+    String year=timestamp2.year.toString();
     // convert timestamp into a hash
     var bytes1 = utf8.encode(timestamp);         // data being hashed
     var digest1 = sha256.convert(bytes1);
     String hash = digest1.toString().substring(0,48);
-    String time = new DateTime.now().toString();
+   // String time = new DateTime.now().toString();
     // send to orders table
-    orders_post m = new orders_post(customer_id,hash,time,"pending");
+    orders_post m = new orders_post(customer_id,hash,time,day,month,year,"pending",Total);
 
 
     http.ordersPostrequest(m);

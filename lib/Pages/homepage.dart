@@ -130,11 +130,12 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    if (users.isEmpty) {
+
       setState(() {
         users = Provider.of<List<Customer>>(context);
+
       });
-    }
+
     return Scaffold(
       appBar: AppBar(
         title: Text('McDATABASE'),

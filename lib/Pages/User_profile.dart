@@ -146,6 +146,10 @@ class _ProfilePageState extends State<ProfilePage> {
             SizedBox(height: 10),
             new Text(users[widget.final_index].email),
             SizedBox(height: 10),
+            new Text(users[widget.final_index].address),
+            SizedBox(height: 10),
+            new Text(users[widget.final_index].city),
+            SizedBox(height: 10),
             Container(
              child: raisedButton("EDIT",onPressed: () => createAlertDialog(context)),
             ),
